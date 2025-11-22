@@ -1,0 +1,101 @@
+{
+  "profiles": [
+    {
+      "id": "business-formal",
+      "name": "Business Formal",
+      "description": "Professional voice for business documents",
+      "provider": "azure",
+      "voice": "en-US-GuyNeural",
+      "speed": 1.0,
+      "pitch": 0,
+      "volume": 80,
+      "settings": {
+        "pauseAtSentences": true,
+        "pauseAtParagraphs": true,
+        "highlightCurrent": true,
+        "autoScroll": true
+      }
+    },
+    {
+      "id": "casual-reading",
+      "name": "Casual Reading",
+      "description": "Relaxed voice for general reading",
+      "provider": "azure",
+      "voice": "en-US-JennyNeural",
+      "speed": 1.2,
+      "pitch": 2,
+      "volume": 75,
+      "settings": {
+        "pauseAtSentences": true,
+        "pauseAtParagraphs": false,
+        "highlightCurrent": true,
+        "autoScroll": true
+      }
+    },
+    {
+      "id": "fast-review",
+      "name": "Fast Review",
+      "description": "Rapid reading for quick document review",
+      "provider": "openai",
+      "voice": "nova",
+      "speed": 1.5,
+      "pitch": 0,
+      "volume": 85,
+      "settings": {
+        "pauseAtSentences": false,
+        "pauseAtParagraphs": false,
+        "highlightCurrent": true,
+        "autoScroll": true
+      }
+    },
+    {
+      "id": "study-mode",
+      "name": "Study Mode",
+      "description": "Slower, clear pronunciation for learning",
+      "provider": "google",
+      "voice": "en-US-Journey-F",
+      "speed": 0.9,
+      "pitch": 0,
+      "volume": 80,
+      "settings": {
+        "pauseAtSentences": true,
+        "pauseAtParagraphs": true,
+        "highlightCurrent": true,
+        "autoScroll": true
+      }
+    },
+    {
+      "id": "audiobook",
+      "name": "Audiobook Style",
+      "description": "Natural storytelling voice for long documents",
+      "provider": "openai",
+      "voice": "fable",
+      "speed": 1.0,
+      "pitch": 0,
+      "volume": 75,
+      "settings": {
+        "pauseAtSentences": true,
+        "pauseAtParagraphs": true,
+        "highlightCurrent": false,
+        "autoScroll": false
+      }
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility Enhanced",
+      "description": "Optimized for screen reader users",
+      "provider": "system",
+      "voice": null,
+      "speed": 1.0,
+      "pitch": 0,
+      "volume": 90,
+      "settings": {
+        "pauseAtSentences": true,
+        "pauseAtParagraphs": true,
+        "highlightCurrent": true,
+        "autoScroll": true
+      }
+    }
+  ],
+  "defaultProfile": "casual-reading"
+}

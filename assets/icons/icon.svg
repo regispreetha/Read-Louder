@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="256" height="256" rx="64" fill="#4a9eff"/>
+
+  <!-- Document icon -->
+  <rect x="64" y="48" width="96" height="128" rx="8" fill="white" opacity="0.9"/>
+  <line x1="80" y1="72" x2="144" y2="72" stroke="#4a9eff" stroke-width="4" stroke-linecap="round"/>
+  <line x1="80" y1="88" x2="144" y2="88" stroke="#4a9eff" stroke-width="4" stroke-linecap="round"/>
+  <line x1="80" y1="104" x2="128" y2="104" stroke="#4a9eff" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Sound waves -->
+  <path d="M 172 96 Q 184 96 184 112 Q 184 128 172 128" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M 188 84 Q 204 84 204 112 Q 204 140 188 140" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M 204 72 Q 224 72 224 112 Q 224 152 204 152" stroke="white" stroke-width="6" stroke-linecap="round" fill="none"/>
+
+  <!-- Microphone/Speaker -->
+  <circle cx="128" cy="192" r="24" fill="white"/>
+  <circle cx="128" cy="192" r="12" fill="#4a9eff"/>
+</svg>

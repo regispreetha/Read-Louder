@@ -1,0 +1,129 @@
+/* Bookmark Manager Styles */
+
+.bookmark-manager {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-secondary);
+}
+
+.bookmark-manager .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.bookmark-manager .panel-header h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.bookmark-manager .panel-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl);
+  text-align: center;
+  height: 100%;
+  color: var(--text-secondary);
+}
+
+.empty-state svg {
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-md);
+}
+
+.empty-state p {
+  margin: 0 0 var(--spacing-xs) 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.empty-state span {
+  font-size: 0.875rem;
+  max-width: 240px;
+}
+
+.bookmark-list {
+  padding: var(--spacing-sm);
+}
+
+.bookmark-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.bookmark-item:hover {
+  background: var(--bg-hover);
+  transform: translateX(4px);
+}
+
+.bookmark-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookmark-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.bookmark-text {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: var(--spacing-xs);
+}
+
+.bookmark-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.bookmark-time {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+}
+
+.bookmark-delete {
+  padding: var(--spacing-xs);
+  color: var(--text-tertiary);
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+.bookmark-item:hover .bookmark-delete {
+  opacity: 1;
+}
+
+.bookmark-delete:hover {
+  background: rgba(248, 113, 113, 0.1);
+  color: var(--error);
+}
