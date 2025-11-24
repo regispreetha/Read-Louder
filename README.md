@@ -18,6 +18,7 @@ A comprehensive desktop application that extracts text from PDF and Word documen
 
 ### Text-to-Speech
 - **Multiple TTS providers**:
+  - **Web Speech API** (browser-based, FREE, no setup required) - **NEW!**
   - System voices (Windows SAPI, macOS Speech Synthesis, Linux eSpeak) - **FREE**
   - Azure Cognitive Services (premium neural voices)
   - Google Cloud Text-to-Speech
@@ -25,6 +26,7 @@ A comprehensive desktop application that extracts text from PDF and Word documen
   - OpenAI TTS (high-quality voices)
 - **Voice customization**: Speed (0.5x-3.0x), pitch, volume control
 - **Natural pronunciation** with abbreviation expansion and smart text processing
+- **Zero native dependencies**: Pure JavaScript implementation for maximum compatibility
 
 ### Reading Controls
 - **Professional playback controls**: Play, pause, stop, skip forward/backward
@@ -52,7 +54,7 @@ A comprehensive desktop application that extracts text from PDF and Word documen
 ## Installation
 
 ### Prerequisites
-- Node.js 16+ and npm
+- Node.js 20+ and npm
 - Git (optional, for cloning)
 
 ### Quick Start
@@ -237,6 +239,24 @@ PORT=3001 WEBHOOK_URL=http://n8n.bloomingminds.tech/webhook npm run api
 ## Configuration
 
 ### TTS Provider Setup
+
+#### Web Speech API (Browser-Based - Free) - **NEW!**
+No configuration needed! The Web Speech API is built into modern browsers (Chrome, Edge, Safari, Firefox) and provides high-quality voices for free. Perfect for the desktop app and web-based usage.
+
+**Features:**
+- ✅ Zero setup required
+- ✅ No API keys needed
+- ✅ Works offline (with local voices)
+- ✅ Multiple languages and voices
+- ✅ Fast response time
+- ✅ Google voices available in Chrome/Edge
+
+**Browser Support:**
+- Chrome/Edge: Excellent support with Google voices
+- Firefox: Good support with system voices
+- Safari: Good support with Apple voices
+
+To use Web Speech API in the app, simply select "Web Speech" as your provider in the settings panel.
 
 #### System Voices (Default - Free)
 No configuration needed. Uses built-in OS voices.
@@ -433,8 +453,9 @@ done
 
 **Build errors**
 - Run `npm install` to ensure all dependencies are installed
-- Check Node.js version (16+ required)
+- Check Node.js version (20+ required)
 - Clear `node_modules` and reinstall if issues persist
+- Note: This version uses pure JavaScript (no native addons like `lame`), so compilation issues should be minimal
 
 ## Performance Tips
 
@@ -466,6 +487,9 @@ For issues, questions, or feature requests:
 
 ## Roadmap
 
+- [x] Web Speech API support for browser-based TTS
+- [x] Node 20 compatibility
+- [x] Pure JavaScript implementation (no native addons)
 - [ ] OCR support for scanned documents
 - [ ] Real-time collaboration features
 - [ ] Cloud storage integration (Dropbox, Google Drive)

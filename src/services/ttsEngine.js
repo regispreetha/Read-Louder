@@ -5,6 +5,7 @@ const { prepareForTTS } = require('../utils/textCleaner');
  * Text-to-Speech Engine
  * Supports multiple TTS providers:
  * - System voices (macOS, Windows, Linux)
+ * - Web Speech API (browser-based)
  * - Azure Cognitive Services
  * - Google Cloud TTS
  * - Amazon Polly
@@ -23,8 +24,10 @@ class TTSEngine {
     this.googleClient = null;
     this.pollyClient = null;
     this.openaiClient = null;
+    this.webSpeechClient = null;
 
     this.isInitialized = false;
+    this.isBrowser = typeof window !== 'undefined';
   }
 
   /**
@@ -33,6 +36,9 @@ class TTSEngine {
   async initialize() {
     try {
       switch (this.provider) {
+        case 'webspeech':
+          await this.initializeWebSpeech();
+          break;
         case 'azure':
           await this.initializeAzure();
           break;
@@ -58,6 +64,31 @@ class TTSEngine {
       console.error('TTS initialization failed:', error);
       return { success: false, error: error.message };
     }
+  }
+
+  /**
+   * Initialize Web Speech API
+   */
+  async initializeWebSpeech() {
+    if (!this.isBrowser) {
+      throw new Error('Web Speech API is only available in browser environments');
+    }
+
+    if (!('speechSynthesis' in window)) {
+      throw new Error('Web Speech API is not supported in this browser');
+    }
+
+    // Dynamically import WebSpeechTTS (for browser environments)
+    const WebSpeechTTS = require('./webSpeechTTS');
+
+    this.webSpeechClient = new WebSpeechTTS({
+      voice: this.voice,
+      speed: this.speed,
+      pitch: this.pitch,
+      volume: this.volume / 100 // Convert to 0-1 range
+    });
+
+    this.isInitialized = true;
   }
 
   /**
@@ -141,6 +172,8 @@ class TTSEngine {
 
     try {
       switch (this.provider) {
+        case 'webspeech':
+          return await this.speakWebSpeech(preparedText, options);
         case 'azure':
           return await this.speakAzure(preparedText, options);
         case 'google':
@@ -174,6 +207,21 @@ class TTSEngine {
           resolve({ success: true, provider: 'system' });
         }
       });
+    });
+  }
+
+  /**
+   * Speak using Web Speech API
+   */
+  async speakWebSpeech(text, options = {}) {
+    if (!this.webSpeechClient) {
+      throw new Error('Web Speech API client not initialized');
+    }
+
+    return await this.webSpeechClient.speak(text, {
+      speed: options.speed || this.speed,
+      pitch: options.pitch || this.pitch,
+      volume: options.volume !== undefined ? options.volume : this.volume / 100
     });
   }
 
@@ -331,6 +379,8 @@ class TTSEngine {
   stop() {
     if (this.provider === 'system') {
       say.stop();
+    } else if (this.provider === 'webspeech' && this.webSpeechClient) {
+      this.webSpeechClient.stop();
     }
     return { success: true };
   }
@@ -344,6 +394,8 @@ class TTSEngine {
       switch (this.provider) {
         case 'system':
           return this.getSystemVoices();
+        case 'webspeech':
+          return this.getWebSpeechVoices();
         case 'azure':
           return this.getAzureVoices();
         case 'google':
@@ -379,6 +431,16 @@ class TTSEngine {
         }
       });
     });
+  }
+
+  /**
+   * Get Web Speech API voices
+   */
+  getWebSpeechVoices() {
+    if (!this.webSpeechClient) {
+      return [];
+    }
+    return this.webSpeechClient.getAvailableVoices();
   }
 
   /**
