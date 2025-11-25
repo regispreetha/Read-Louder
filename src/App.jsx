@@ -7,6 +7,7 @@ import BookmarkManager from './components/BookmarkManager';
 import ProgressTracker from './components/ProgressTracker';
 import { FileText, Settings, BookMarked, Upload } from 'lucide-react';
 import { useAppStore } from './store/appStore';
+import { useTTSPlayback } from './hooks/useTTSPlayback';
 import './styles/App.css';
 
 function App() {
@@ -21,6 +22,9 @@ function App() {
 
   const [showSettings, setShowSettings] = useState(false);
   const [showBookmarks, setShowBookmarks] = useState(false);
+
+  // Initialize TTS playback
+  const { isReady, sentenceCount } = useTTSPlayback();
 
   // Drag and drop handler
   const onDrop = async (acceptedFiles) => {
