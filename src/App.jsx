@@ -24,7 +24,9 @@ function App() {
   const [showBookmarks, setShowBookmarks] = useState(false);
 
   // Initialize TTS playback
+  console.log('🚀 App component rendering, about to call useTTSPlayback hook');
   const { isReady, sentenceCount } = useTTSPlayback();
+  console.log('✨ Hook returned:', { isReady, sentenceCount });
 
   // Drag and drop handler
   const onDrop = async (acceptedFiles) => {
