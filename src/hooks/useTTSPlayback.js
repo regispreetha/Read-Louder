@@ -71,16 +71,32 @@ export const useTTSPlayback = () => {
 
   // Main playback loop
   useEffect(() => {
-    if (!isPlaying || !ttsRef.current || sentences.length === 0) {
-      if (!isPlaying && ttsRef.current) {
+    // Stop if not playing
+    if (!isPlaying) {
+      if (ttsRef.current) {
         ttsRef.current.stop();
-        isPlayingRef.current = false;
       }
+      isPlayingRef.current = false;
       return;
     }
 
+    // Don't start if not ready
+    if (!ttsRef.current || sentences.length === 0) {
+      console.warn('TTS not ready: ttsRef=' + !!ttsRef.current + ', sentences=' + sentences.length);
+      return;
+    }
+
+    // Don't start if already playing (prevents double-triggering)
+    if (isPlayingRef.current) {
+      return;
+    }
+
+    console.log('Starting playback from sentence', currentSentenceIndex + 1);
+
     const speakCurrentSentence = async () => {
-      if (!isPlayingRef.current || currentSentenceIndex >= sentences.length) {
+      if (currentSentenceIndex >= sentences.length) {
+        console.log('Reached end of document');
+        stopPlayback();
         return;
       }
 
@@ -88,6 +104,7 @@ export const useTTSPlayback = () => {
 
       if (!sentence || sentence.trim().length === 0) {
         // Skip empty sentences
+        console.log('Skipping empty sentence');
         nextSentence();
         return;
       }
@@ -100,12 +117,14 @@ export const useTTSPlayback = () => {
         await ttsRef.current.speak(sentence);
 
         // Only advance if we're still playing
-        if (isPlayingRef.current && currentSentenceIndex < sentences.length - 1) {
-          nextSentence();
-        } else if (currentSentenceIndex >= sentences.length - 1) {
-          // Reached the end
-          console.log('Playback completed');
-          stopPlayback();
+        if (isPlayingRef.current) {
+          if (currentSentenceIndex < sentences.length - 1) {
+            console.log('Moving to next sentence');
+            nextSentence();
+          } else {
+            console.log('Playback completed');
+            stopPlayback();
+          }
         }
       } catch (error) {
         console.error('TTS error:', error);
