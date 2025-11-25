@@ -7,6 +7,8 @@ import WebSpeechTTS from '../services/webSpeechTTS';
  * Connects the app state to the Web Speech API
  */
 export const useTTSPlayback = () => {
+  console.log('🎵 useTTSPlayback hook called');
+
   const {
     document,
     isPlaying,
@@ -19,19 +21,26 @@ export const useTTSPlayback = () => {
     stop: stopPlayback
   } = useAppStore();
 
+  console.log('📊 Store state:', { hasDocument: !!document, isPlaying, currentSentenceIndex });
+
   const ttsRef = useRef(null);
   const [sentences, setSentences] = useState([]);
   const isPlayingRef = useRef(false);
 
   // Initialize TTS engine
   useEffect(() => {
+    console.log('🔧 TTS initialization effect running');
     if (!ttsRef.current) {
-      ttsRef.current = new WebSpeechTTS({
-        speed: settings.speed,
-        pitch: settings.pitch || 1.0,
-        volume: settings.volume / 100
-      });
-      console.log('Web Speech TTS initialized');
+      try {
+        ttsRef.current = new WebSpeechTTS({
+          speed: settings.speed,
+          pitch: settings.pitch || 1.0,
+          volume: settings.volume / 100
+        });
+        console.log('✅ Web Speech TTS initialized successfully');
+      } catch (error) {
+        console.error('❌ Failed to initialize WebSpeechTTS:', error);
+      }
     }
   }, []);
 
